@@ -1,0 +1,6 @@
+dependencies {
+    compile (
+        project(':jpa-dao-generator-api'),
+        'com.squareup:javapoet:1.7.0'
+    )
+}
