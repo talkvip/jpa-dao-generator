@@ -1,18 +1,17 @@
 package com.wesleyhome.dao.api;
 
-import java.util.List;
-
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate.BooleanOperator;
+import java.util.List;
 
-public interface Filter<X, T> {
-	Operators getOperator();
+interface Filter<X, T> {
+    Operators getOperator();
 
-	Path<T> getPath(Path<X> parentPath);
+    Path<T> getPath(Path<X> parentPath);
 
-	List<FilterValue<T>> getFilterValues();
+    List<FilterValue<T>> getFilterValues();
 
-	void addValue(T value, final BooleanOperator booleanOperator);
+    void addValue(T value, final BooleanOperator booleanOperator);
 
-	BooleanOperator getBooleanOperator();
+    BooleanOperator getBooleanOperator();
 }

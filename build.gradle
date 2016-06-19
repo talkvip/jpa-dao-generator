@@ -1,15 +1,12 @@
-plugins {
-    id 'java'
-    id "com.jfrog.bintray" version "1.6"
-}
-subprojects{
-    sourceCompatibility = 1.8
+
+allprojects{
     apply plugin: 'java'
-    apply plugin: 'com.jfrog.bintray'
+    apply plugin: 'maven-publish'
+    sourceCompatibility = 1.8
     repositories {
+        mavenLocal()
         mavenCentral()
     }
-
     dependencies {
         testCompile (
                 'junit:junit:4.12',
@@ -17,7 +14,7 @@ subprojects{
                 'org.assertj:assertj-core:3.4.1'
         )
     }
+    group 'com.wesleyhome.jpa'
+    version '1.0.0-SNAPSHOT'
 }
-group 'com.wesleyhome.jpa'
-version '1.0.0-SNAPSHOT'
 
