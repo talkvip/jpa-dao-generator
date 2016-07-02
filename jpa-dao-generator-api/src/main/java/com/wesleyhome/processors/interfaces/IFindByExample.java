@@ -1,7 +1,12 @@
+/*
+ * Copyright (c) 2016. Justin Wesley
+ */
+
 package com.wesleyhome.processors.interfaces;
 
-import java.util.List;
 import com.wesleyhome.dao.api.ExampleObject;
+
+import java.util.List;
 
 public interface IFindByExample<E extends ExampleObject<E>, T> {
 

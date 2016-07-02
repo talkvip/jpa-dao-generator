@@ -1,7 +1,12 @@
+/*
+ * Copyright (c) 2016. Justin Wesley
+ */
+
 package com.wesleyhome.annotation.api;
 
-import javax.lang.model.element.VariableElement;
 import com.squareup.javapoet.TypeName;
+
+import javax.lang.model.element.VariableElement;
 
 public interface MethodParameter {
 
@@ -9,7 +14,7 @@ public interface MethodParameter {
 
 	String getParameterName();
 
-	public static MethodParameter of(final VariableElement variableElement) {
+	static MethodParameter of(final VariableElement variableElement) {
 		return new MethodParameter() {
 
 			@Override
@@ -24,7 +29,7 @@ public interface MethodParameter {
 		};
 	}
 
-	public static MethodParameter of(final TypeName parameterType, final String parameterName) {
+	static MethodParameter of(final TypeName parameterType, final String parameterName) {
 		return new MethodParameter() {
 
 			@Override

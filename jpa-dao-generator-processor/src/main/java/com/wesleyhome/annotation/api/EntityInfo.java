@@ -1,8 +1,12 @@
+/*
+ * Copyright (c) 2016. Justin Wesley
+ */
+
 package com.wesleyhome.annotation.api;
 
-import java.util.List;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import java.util.List;
 
 public interface EntityInfo extends Comparable<EntityInfo> {
 

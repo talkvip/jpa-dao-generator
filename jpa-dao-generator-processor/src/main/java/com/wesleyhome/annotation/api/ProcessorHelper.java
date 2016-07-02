@@ -1,15 +1,15 @@
+/*
+ * Copyright (c) 2016. Justin Wesley
+ */
+
 package com.wesleyhome.annotation.api;
 
-import java.lang.annotation.Annotation;
-import java.util.List;
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.AnnotationValue;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
+import javax.lang.model.element.*;
 import javax.lang.model.type.PrimitiveType;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic.Kind;
+import java.lang.annotation.Annotation;
+import java.util.List;
 
 public interface ProcessorHelper {
 

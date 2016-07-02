@@ -1,14 +1,19 @@
+/*
+ * Copyright (c) 2016. Justin Wesley
+ */
+
 package com.wesleyhome.processor.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
-import org.apache.commons.lang3.StringUtils;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeName;
 import com.wesleyhome.annotation.api.ProcessorHelper;
+import org.apache.commons.lang3.StringUtils;
+
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TypeElementType implements Type {
 

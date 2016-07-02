@@ -1,9 +1,14 @@
+/*
+ * Copyright (c) 2016. Justin Wesley
+ */
+
 package com.wesleyhome.processor.model;
 
-import java.util.List;
+import com.wesleyhome.annotation.api.ProcessorHelper;
+
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.VariableElement;
-import com.wesleyhome.annotation.api.ProcessorHelper;
+import java.util.List;
 
 public class VariableElementTypeField implements TypeField {
 

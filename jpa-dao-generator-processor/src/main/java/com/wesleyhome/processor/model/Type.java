@@ -1,17 +1,22 @@
+/*
+ * Copyright (c) 2016. Justin Wesley
+ */
+
 package com.wesleyhome.processor.model;
 
-import java.util.List;
 import com.squareup.javapoet.TypeName;
+
+import java.util.List;
 
 public interface Type {
 
-	public List<TypeField> getFields();
+	List<TypeField> getFields();
 
-	public String getPackageName();
+	String getPackageName();
 
-	public String getName();
+	String getName();
 
-	public String getSimpleName();
+	String getSimpleName();
 
-	public TypeName getTypeName();
+	TypeName getTypeName();
 }

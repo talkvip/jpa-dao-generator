@@ -1,21 +1,13 @@
 /*
- * Copyright 2014 Justin Wesley
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright (c) 2016. Justin Wesley
  */
+
 package com.wesleyhome.processor;
 
-import java.util.List;
+import com.wesleyhome.annotation.api.ProcessorHelper;
+import com.wesleyhome.annotation.api.Scope;
+import com.wesleyhome.annotation.api.ScopeType;
+
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
@@ -23,9 +15,7 @@ import javax.persistence.Cacheable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import com.wesleyhome.annotation.api.ProcessorHelper;
-import com.wesleyhome.annotation.api.Scope;
-import com.wesleyhome.annotation.api.ScopeType;
+import java.util.List;
 
 public class EntityInfoProcessor {
 
@@ -53,7 +43,7 @@ public class EntityInfoProcessor {
 
 	private boolean getCacheable(final TypeElement entityElement) {
 		Object cacheable = annotationHelper.getAnnotationValue(entityElement, Cacheable.class, "value");
-		return cacheable == null ? false : (boolean) cacheable;
+		return cacheable != null && (boolean) cacheable;
 	}
 
 	/**

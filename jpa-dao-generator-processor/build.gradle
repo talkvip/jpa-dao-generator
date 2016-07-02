@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2016. Justin Wesley
+ */
+
 dependencies {
     compile (
         project(':jpa-dao-generator-api'),
