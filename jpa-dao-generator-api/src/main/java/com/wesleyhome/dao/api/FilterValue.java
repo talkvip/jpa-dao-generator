@@ -2,7 +2,7 @@ package com.wesleyhome.dao.api;
 
 import javax.persistence.criteria.Predicate.BooleanOperator;
 
-class FilterValue<T> {
+public class FilterValue<T> {
     private final T value;
     private final BooleanOperator booleanOperator;
 

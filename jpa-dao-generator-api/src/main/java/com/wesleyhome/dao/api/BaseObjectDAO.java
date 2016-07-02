@@ -432,6 +432,11 @@ public abstract class BaseObjectDAO implements DAO {
         return criteriaBuilder.and(isOnOrAfter(path, startDate), isOnOrBefore(path, endDate));
     }
 
+    protected <X extends Comparable<X>> Predicate between(final X value, final Expression<X> start, final Expression<X> end){
+        CriteriaBuilder criteriaBuilder = getCriteriaBuilder();
+        return criteriaBuilder.between(criteriaBuilder.literal(value), start, end);
+    }
+
     protected Predicate isBefore(final Expression<Date> path, final Date value) {
         CriteriaBuilder criteriaBuilder = getCriteriaBuilder();
         return criteriaBuilder.lessThan(path, new java.sql.Date(value.getTime()));

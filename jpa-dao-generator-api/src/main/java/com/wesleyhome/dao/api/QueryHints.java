@@ -1,6 +1,6 @@
 package com.wesleyhome.dao.api;
 
-interface QueryHints {
+public interface QueryHints {
     String CACHE_MODE = "org.hibernate.cacheMode";
     String CACHE_REGION = "org.hibernate.cacheRegion";
     String CACHEABLE = "org.hibernate.cacheable";

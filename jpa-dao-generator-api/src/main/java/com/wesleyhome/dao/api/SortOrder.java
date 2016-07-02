@@ -3,7 +3,7 @@ package com.wesleyhome.dao.api;
 import javax.persistence.criteria.Path;
 import javax.persistence.metamodel.SingularAttribute;
 
-class SortOrder<X, T> {
+public class SortOrder<X, T> {
 
     private final SingularAttribute<X, T> field;
     private final String property;
@@ -21,11 +21,11 @@ class SortOrder<X, T> {
         this.isAscending = isAscending;
     }
 
-    Path<T> getPath(final Path<X> parentPath) {
+    public Path<T> getPath(final Path<X> parentPath) {
         return this.field != null ? parentPath.get(this.field) : parentPath.get(property);
     }
 
-    boolean isAscending() {
+    public boolean isAscending() {
         return isAscending;
     }
 }

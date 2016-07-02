@@ -15,50 +15,8 @@
  */
 package com.wesleyhome.processor;
 
-import static com.wesleyhome.processor.DAOGeneratorProcessor.DAO_NAMED_KEY;
-import static com.wesleyhome.processor.DAOGeneratorProcessor.ENTITY_MANANGER_INJECT_KEY;
-import java.io.Serializable;
-import java.lang.annotation.Annotation;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.annotation.Generated;
-import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Messager;
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.annotation.processing.Processor;
-import javax.annotation.processing.RoundEnvironment;
-import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.annotation.processing.SupportedOptions;
-import javax.annotation.processing.SupportedSourceVersion;
-import javax.lang.model.SourceVersion;
-import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.Modifier;
-import javax.lang.model.element.TypeElement;
-import javax.lang.model.element.VariableElement;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.MappedSuperclass;
-import javax.tools.Diagnostic.Kind;
 import com.google.auto.service.AutoService;
-import com.squareup.javapoet.AnnotationSpec;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.FieldSpec;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.*;
 import com.wesleyhome.annotation.api.DaoMethodProcessor;
 import com.wesleyhome.annotation.api.EntityInfo;
 import com.wesleyhome.annotation.api.MethodParameter;
@@ -68,9 +26,28 @@ import com.wesleyhome.dao.api.DAO;
 import com.wesleyhome.dao.api.Delegate;
 import com.wesleyhome.processor.model.Type;
 import com.wesleyhome.processor.model.TypeElementType;
-import com.wesleyhome.processors.codegen.FindAllMethodProcessor;
-import com.wesleyhome.processors.codegen.FindByExampleMethodProcessor;
-import com.wesleyhome.processors.codegen.FindByPKMethodProcessor;
+import com.wesleyhome.processors.codegen.*;
+
+import javax.annotation.Generated;
+import javax.annotation.processing.*;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.*;
+import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.MappedSuperclass;
+import javax.tools.Diagnostic.Kind;
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+import static com.wesleyhome.processor.DAOGeneratorProcessor.DAO_NAMED_KEY;
+import static com.wesleyhome.processor.DAOGeneratorProcessor.ENTITY_MANANGER_INJECT_KEY;
 
 /**
  * The <code>DAOGeneratorProcessor</code> class is a
@@ -162,7 +139,10 @@ public class DAOGeneratorProcessor extends AbstractProcessor {
 		return Arrays.asList(
 			new FindByPKMethodProcessor(),
 			new FindAllMethodProcessor(),
-			new FindByExampleMethodProcessor());
+			new FindByExampleMethodProcessor(),
+			new FindAllCountMethodProcessor(),
+			new FindByExampleCountMethodProcessor(),
+			new ExistsMethodProcessor());
 	}
 
 	private List<JavaFile> getFileList(final EntityInfo entityInfo, final ProcessorHelper annotationHelper, final String dateTimeString,
@@ -341,8 +321,16 @@ public class DAOGeneratorProcessor extends AbstractProcessor {
 
 	private JavaFile addJavaFile(final List<JavaFile> fileList, final String packageName, final TypeSpec interfaceTypeSpec) {
 		JavaFile interfaceFile = getJavaFile(packageName, interfaceTypeSpec);
-		fileList.add(interfaceFile);
-		return interfaceFile;
+		Predicate<JavaFile> javaFilePredicate = file -> getName(file).equals(getName(interfaceFile)) && file.packageName.equals(packageName);
+		if(fileList.stream().filter(javaFilePredicate).count() == 0) {
+			fileList.add(interfaceFile);
+			return interfaceFile;
+		}
+		return fileList.stream().filter(javaFilePredicate).findFirst().get();
+	}
+
+	private String getName(JavaFile interfaceFile) {
+		return interfaceFile.typeSpec.name;
 	}
 
 	private JavaFile getJavaFile(final String packageName, final TypeSpec interfaceTypeSpec) {
@@ -352,7 +340,7 @@ public class DAOGeneratorProcessor extends AbstractProcessor {
 	}
 
 	private ClassName getClassName(final JavaFile javaFile) {
-		return ClassName.get(javaFile.packageName, javaFile.typeSpec.name);
+		return ClassName.get(javaFile.packageName, getName(javaFile));
 	}
 
 	private void addToConcreteClass(final String delegateFieldName, final com.squareup.javapoet.TypeSpec.Builder concreteClassBuilder,

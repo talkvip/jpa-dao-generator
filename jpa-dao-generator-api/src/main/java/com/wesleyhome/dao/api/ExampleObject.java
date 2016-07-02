@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public abstract class ExampleObject<T extends ExampleObject<T>> {
 
-    private T self;
+    protected T self;
     private QueryMetadata queryMetadata;
     private BooleanOperator nextOperator;
 
