@@ -1,4 +1,0 @@
-rootProject.name = 'jpa-dao-generator'
-include 'jpa-dao-generator-api'
-include 'jpa-dao-generator-processor'
-
