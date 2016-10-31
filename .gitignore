@@ -1,2 +1,11 @@
 /.settings/
 /.project
+.idea/compiler.xml
+.idea/copyright/profiles_settings.xml
+.idea/jpa-dao-generator.iml
+*.iml
+jpa-dao-generator-api/jpa-dao-generator-api.iml
+.idea/libraries/Maven__com_google_auto_auto_common_0_3.xml
+.idea/libraries/Maven__javax_inject_javax_inject_1.xml
+.idea/misc.xml
+jpa-dao-generator-processor/jpa-dao-generator-processor.iml
